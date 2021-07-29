@@ -27,7 +27,11 @@ export default function Product() {
       .then((res) => {
         setProduct(res);
       })
-      .finally(() => setLoading(!loading));
+      .finally(() => setLoading(!loading))
+      .catch((error) => {
+        console.log(error);
+        setLoading(!loading);
+      });
   }, [id]);
 
   return (

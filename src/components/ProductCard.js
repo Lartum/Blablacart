@@ -18,6 +18,7 @@ export default function ProductCard({
   image = "",
   title = "",
   price,
+  related = false,
 }) {
   const classes = cardStyles();
   const [cart, addProduct, removeProduct] = useCart(useCart);
@@ -88,26 +89,30 @@ export default function ProductCard({
           )}
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        {loading ? (
-          <Skeleton
-            animation="wave"
-            height={20}
-            style={{ marginBottom: 6 }}
-            className={classes.skeletonButton}
-          />
-        ) : (
-          <Button
-            fullWidth
-            size="small"
-            color="primary"
-            variant="contained"
-            onClick={() => addProduct(product)}
-          >
-            Add To Cart
-          </Button>
-        )}
-      </CardActions>
+      {related ? (
+        <></>
+      ) : (
+        <CardActions>
+          {loading ? (
+            <Skeleton
+              animation="wave"
+              height={20}
+              style={{ marginBottom: 6 }}
+              className={classes.skeletonButton}
+            />
+          ) : (
+            <Button
+              fullWidth
+              size="small"
+              color="primary"
+              variant="contained"
+              onClick={() => addProduct(product)}
+            >
+              Add To Cart
+            </Button>
+          )}
+        </CardActions>
+      )}
     </Card>
   );
 }

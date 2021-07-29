@@ -20,6 +20,7 @@ export default function Cart({ cartToggle, toggleCart }) {
   const history = useHistory();
 
   let totalPrice = 0;
+  console.log(cart);
   if (cart.length > 0) {
     cart.map(({ quantity, price }) => {
       totalPrice = (totalPrice + price * 75) * quantity;

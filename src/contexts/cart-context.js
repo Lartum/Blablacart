@@ -16,6 +16,9 @@ export const CartProvider = ({ children }) => {
       const newQuantity = cartProducts[existingProduct].quantity++;
       return (cartProducts[existingProduct].price *= newQuantity);
     }
+    if (!product.quantity) {
+      product.quantity = 1;
+    }
     setcartProducts(cartProducts.concat(product));
   };
   const removeProduct = (id) => {

@@ -18,6 +18,7 @@ const productStyles = makeStyles((theme) => ({
     justifyContent: "center",
     maxWidth: 350,
     marginTop: 24,
+    alignSelf: "flex-start",
   },
   skeletonMedia: {
     [theme.breakpoints.down("sm")]: {
