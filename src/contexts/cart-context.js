@@ -13,7 +13,8 @@ export const CartProvider = ({ children }) => {
       if (cartProducts[existingProduct].quantity >= 5) {
         return false;
       }
-      return cartProducts[existingProduct].quantity++;
+      const newQuantity = cartProducts[existingProduct].quantity++;
+      return (cartProducts[existingProduct].price *= newQuantity);
     }
     setcartProducts(cartProducts.concat(product));
   };
@@ -22,6 +23,7 @@ export const CartProvider = ({ children }) => {
   };
 
   const handleQuantityChange = (index, value) => {
+    cartProducts[index].price *= value;
     cartProducts[index].quantity = value;
   };
   const data = [cartProducts, addProduct, removeProduct, handleQuantityChange];

@@ -56,13 +56,14 @@ export default function Home() {
       />
       <Container maxWidth="lg">
         <div className={classes.root}>
-          {products.map(({ id, image, title }, index) => (
+          {products.map(({ id, image, title, price }, index) => (
             <ProductCard
               key={index}
               loading={loading}
               id={id}
               image={image}
               title={title}
+              price={price}
             />
           ))}
         </div>

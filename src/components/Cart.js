@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Divider,
   FormControl,
   IconButton,
   List,
@@ -18,6 +19,12 @@ export default function Cart({ cartToggle, toggleCart }) {
     useCart(useCart);
   const history = useHistory();
 
+  let totalPrice = 0;
+  if (cart.length > 0) {
+    cart.map(({ quantity, price }) => {
+      totalPrice = (totalPrice + price * 75) * quantity;
+    });
+  }
   return (
     <>
       {cartToggle ? (
@@ -25,7 +32,7 @@ export default function Cart({ cartToggle, toggleCart }) {
           <List>
             {cart.length > 0 ? (
               <>
-                {cart.map(({ id, image, title }, index) => (
+                {cart.map(({ id, image, title, price }, index) => (
                   <ListItem key={id}>
                     <Box className={classes.imageContainer}>
                       <img
@@ -39,6 +46,9 @@ export default function Cart({ cartToggle, toggleCart }) {
                         {title.length > 20
                           ? title.substring(0, 20) + "..."
                           : title}
+                      </Typography>
+                      <Typography style={{ color: "#00000D" }}>
+                        ₹ {price * 75}
                       </Typography>
                       <Box
                         style={{ display: "flex", justifyContent: "flex-end" }}
@@ -67,6 +77,14 @@ export default function Cart({ cartToggle, toggleCart }) {
                     </Box>
                   </ListItem>
                 ))}
+                <Divider />
+                <ListItem>
+                  <Typography style={{ color: "#000" }}>Total</Typography>
+                  <Typography style={{ marginLeft: "auto", color: "#000" }}>
+                    ₹{totalPrice}
+                  </Typography>
+                </ListItem>
+                <Divider />
                 <ListItem>
                   <Button
                     fullWidth

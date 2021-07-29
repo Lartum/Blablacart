@@ -104,6 +104,26 @@ export default function Product() {
               </Typography>
             )}
             {loading || !product ? (
+              <Skeleton
+                animation="wave"
+                variant="rect"
+                height={20}
+                style={{
+                  marginBottom: 18,
+                  width: 250,
+                  // marginLeft: "auto",
+                  // marginRight: "auto",
+                }}
+              />
+            ) : (
+              <Typography
+                variant="h4"
+                style={{ marginBottom: 18, fontWeight: "bold" }}
+              >
+                ₹ {product.price * 75}
+              </Typography>
+            )}
+            {loading || !product ? (
               <>
                 <Skeleton
                   animation="wave"

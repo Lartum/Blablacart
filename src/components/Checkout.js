@@ -50,7 +50,7 @@ export const OrderSummary = () => {
     <div>
       <List>
         {cart.length > 0 ? (
-          cart.map(({ id, image, title }, index) => (
+          cart.map(({ id, image, title, price, quantity }, index) => (
             <ListItem key={id}>
               <Box className={classes.imageContainer}>
                 <img
@@ -63,11 +63,12 @@ export const OrderSummary = () => {
                 <Typography style={{ color: "#00000D" }}>
                   {title.length > 20 ? title.substring(0, 20) + "..." : title}
                 </Typography>
+                <Typography style={{ color: "#00000D" }}>₹{}</Typography>
                 <Box style={{ display: "flex", justifyContent: "flex-end" }}>
                   <FormControl style={{ alignSelf: "center" }}>
                     <input
                       defaultValue={1}
-                      // value={cart[index].quantity}
+                      value={quantity}
                       onChange={(e) =>
                         handleQuantityChange(index, e.target.value)
                       }

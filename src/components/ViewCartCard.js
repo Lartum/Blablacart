@@ -13,6 +13,7 @@ export default function ViewCartCard({
   id,
   image,
   title,
+  price,
   quantity,
   removeProduct,
   handleQuantityChange,
@@ -38,6 +39,9 @@ export default function ViewCartCard({
             className={classes.cartProductImage}
             style={{ position: "relative" }}
           />
+          <Typography style={{ alignSelf: "center", marginLeft: 16 }}>
+            ₹ {price * 75}
+          </Typography>
           <Box style={{ marginLeft: "auto" }}>
             <Box style={{ display: "flex", justifyContent: "flex-end" }}>
               <FormControl style={{ alignSelf: "center" }}>

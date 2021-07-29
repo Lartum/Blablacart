@@ -12,7 +12,13 @@ import cardStyles from "../styles/cardStyles";
 import { useCart } from "../contexts/cart-context";
 import { useHistory } from "react-router-dom";
 
-export default function ProductCard({ loading, id, image = "", title = "" }) {
+export default function ProductCard({
+  loading,
+  id,
+  image = "",
+  title = "",
+  price,
+}) {
   const classes = cardStyles();
   const [cart, addProduct, removeProduct] = useCart(useCart);
   const history = useHistory();
@@ -20,6 +26,7 @@ export default function ProductCard({ loading, id, image = "", title = "" }) {
     id,
     image,
     title,
+    price,
     quantity: 1,
   };
 
@@ -60,6 +67,23 @@ export default function ProductCard({ loading, id, image = "", title = "" }) {
           ) : (
             <Typography gutterBottom variant="h6" component="h6" align="center">
               {title.length > 20 ? title.substring(0, 20) + "..." : title}
+            </Typography>
+          )}
+          {loading ? (
+            <Skeleton
+              animation="wave"
+              height={10}
+              style={{ marginBottom: 6 }}
+            />
+          ) : (
+            <Typography
+              gutterBottom
+              variant="h6"
+              component="h6"
+              align="center"
+              style={{ fontWeight: "bold" }}
+            >
+              ₹ {price * 75}
             </Typography>
           )}
         </CardContent>

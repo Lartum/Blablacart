@@ -15,6 +15,15 @@ export default function ViewCart() {
   const [cart, addProduct, removeProduct, handleQuantityChange] =
     useCart(useCart);
   const history = useHistory();
+  let totalItems = 0,
+    totalPrice = 0;
+  if (cart.length > 0) {
+    cart.map(({ quantity, price }) => {
+      totalItems = totalItems + quantity;
+      totalPrice = (totalPrice + price * 75) * quantity;
+    });
+  }
+
   return (
     <>
       <Navbar hideSidebar={true} />
@@ -42,13 +51,14 @@ export default function ViewCart() {
                 Cart is empty
               </Typography>
             ) : (
-              cart.map(({ id, image, title, quantity }, index) => (
+              cart.map(({ id, image, title, quantity, price }, index) => (
                 <ViewCartCard
                   key={id}
                   index={index}
                   id={id}
                   image={image}
                   title={title}
+                  price={price}
                   quantity={quantity}
                   removeProduct={removeProduct}
                   handleQuantityChange={handleQuantityChange}
@@ -94,11 +104,11 @@ export default function ViewCart() {
               marginTop: 20,
               display: "flex",
               flexDirection: "column",
-              gap: 50,
+              gap: 30,
               height: "fit-content",
             }}
           >
-            <Box>
+            <Box style={{ display: "flex" }}>
               <Typography
                 variant="body1"
                 color="primary"
@@ -108,17 +118,30 @@ export default function ViewCart() {
               </Typography>
               <Divider style={{ marginTop: 12 }} />
             </Box>
-            <Box>
+            <Box style={{ display: "flex" }}>
               <Typography>
-                Price (<span>{cart.length} item</span>)
+                Price (<span>{totalItems} item</span>)
+              </Typography>
+              <Typography style={{ marginLeft: "auto" }}>
+                ₹{totalPrice}
               </Typography>
             </Box>
-            <Box>
+            <Box style={{ display: "flex" }}>
               <Typography>Delivery Charges</Typography>
+              <Typography style={{ marginLeft: "auto", color: "#388e3c" }}>
+                Free
+              </Typography>
             </Box>
-            <Box>
-              <Typography>Total Payable</Typography>
+            <Divider />
+            <Box style={{ display: "flex" }}>
+              <Typography style={{ fontWeight: "bold" }}>
+                Total Payable
+              </Typography>
+              <Typography style={{ marginLeft: "auto", fontWeight: "bold" }}>
+                ₹{totalPrice}
+              </Typography>
             </Box>
+            <Divider />
           </Paper>
         </div>
       </Container>
