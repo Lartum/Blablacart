@@ -2,20 +2,22 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const cartStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
     position: "absolute",
     top: 60,
 
     [theme.breakpoints.down("sm")]: {
-      right: 14,
+      right: 30,
+      width: "80%",
     },
     [theme.breakpoints.up("md")]: {
       right: 28,
+      width: "100%",
     },
     [theme.breakpoints.up("lg")]: {
       right: 28,
+      width: "100%",
     },
     padding: 4,
     borderRadius: 4,

@@ -23,7 +23,7 @@ export default function Cart({ cartToggle, toggleCart }) {
   console.log(cart);
   if (cart.length > 0) {
     cart.map(({ quantity, price }) => {
-      totalPrice = (totalPrice + price * 75) * quantity;
+      return (totalPrice = (totalPrice + price * 75) * quantity);
     });
   }
   return (
