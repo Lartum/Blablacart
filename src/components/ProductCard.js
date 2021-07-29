@@ -12,14 +12,14 @@ import cardStyles from "../styles/cardStyles";
 import { useCart } from "../contexts/cart-context";
 import { useHistory } from "react-router-dom";
 
-export default function ProductCard({ loading, id, imageUrl = "", name = "" }) {
+export default function ProductCard({ loading, id, image = "", title = "" }) {
   const classes = cardStyles();
   const [cart, addProduct, removeProduct] = useCart(useCart);
   const history = useHistory();
   const product = {
     id,
-    imageUrl,
-    name,
+    image,
+    title,
     quantity: 1,
   };
 
@@ -35,13 +35,13 @@ export default function ProductCard({ loading, id, imageUrl = "", name = "" }) {
             variant="rect"
             className={classes.skeletonMedia}
           />
-        ) : imageUrl.length > 0 ? (
+        ) : image.length > 0 ? (
           <CardMedia
             className={classes.media}
             component="img"
             alt="Product"
-            image={imageUrl}
-            title={name}
+            image={image}
+            title={title}
           />
         ) : (
           <Skeleton
@@ -59,7 +59,7 @@ export default function ProductCard({ loading, id, imageUrl = "", name = "" }) {
             />
           ) : (
             <Typography gutterBottom variant="h6" component="h6" align="center">
-              {name.length > 20 ? name.substring(0, 20) + "..." : name}
+              {title.length > 20 ? title.substring(0, 20) + "..." : title}
             </Typography>
           )}
         </CardContent>

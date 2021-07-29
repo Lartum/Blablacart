@@ -9,18 +9,15 @@ import {
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useHistory } from "react-router-dom";
+import { useCart } from "../contexts/cart-context";
 import cartStyles from "../styles/cartStyles";
 
-export default function Cart({ cartToggle, toggleCart, cart, removeProduct }) {
+export default function Cart({ cartToggle, toggleCart }) {
   const classes = cartStyles();
+  const [cart, addProduct, removeProduct, handleQuantityChange] =
+    useCart(useCart);
   const history = useHistory();
-  const handleQuantityChange = (index) => (event) => {
-    cart[index].quantity = event.target.value;
-  };
 
-  const redirectToCheckout = () => {
-    history.push("/checkout");
-  };
   return (
     <>
       {cartToggle ? (
@@ -28,28 +25,31 @@ export default function Cart({ cartToggle, toggleCart, cart, removeProduct }) {
           <List>
             {cart.length > 0 ? (
               <>
-                {cart.map(({ id, imageUrl, name }, index) => (
+                {cart.map(({ id, image, title }, index) => (
                   <ListItem key={id}>
                     <Box className={classes.imageContainer}>
                       <img
-                        src={imageUrl}
-                        alt={name}
+                        src={image}
+                        alt={title}
                         className={classes.cartProductImage}
                       />
                     </Box>
-                    <Box style={{ marginLeft: 4 }}>
-                      <Typography
-                        style={{ color: "#00000D", textAlign: "center" }}
-                      >
-                        {name.length > 20
-                          ? name.substring(0, 20) + "..."
-                          : name}
+                    <Box style={{ marginLeft: 4, flexGrow: 1 }}>
+                      <Typography style={{ color: "#00000D" }}>
+                        {title.length > 20
+                          ? title.substring(0, 20) + "..."
+                          : title}
                       </Typography>
-                      <Box style={{ display: "flex" }}>
+                      <Box
+                        style={{ display: "flex", justifyContent: "flex-end" }}
+                      >
                         <FormControl style={{ alignSelf: "center" }}>
                           <input
                             defaultValue={1}
-                            onChange={() => handleQuantityChange(index)}
+                            // value={cart[index].quantity}
+                            onChange={(e) =>
+                              handleQuantityChange(index, e.target.value)
+                            }
                             type="number"
                             id="tentacles"
                             name="tentacles"
@@ -57,9 +57,8 @@ export default function Cart({ cartToggle, toggleCart, cart, removeProduct }) {
                             max={5}
                           />
                         </FormControl>
-
                         <IconButton
-                          onClick={() => removeProduct(index)}
+                          onClick={() => removeProduct(id)}
                           style={{ marginLeft: "auto" }}
                         >
                           <DeleteIcon />
@@ -74,7 +73,7 @@ export default function Cart({ cartToggle, toggleCart, cart, removeProduct }) {
                     size="small"
                     color="primary"
                     variant="contained"
-                    onClick={() => redirectToCheckout()}
+                    onClick={() => history.push("/viewcart")}
                   >
                     Checkout
                   </Button>

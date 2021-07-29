@@ -6,7 +6,7 @@ const productStyles = makeStyles((theme) => ({
       width: "100%",
     },
     [theme.breakpoints.up("md")]: {
-      width: 350,
+      width: "350",
     },
     [theme.breakpoints.up("lg")]: {
       width: 350,
@@ -17,6 +17,7 @@ const productStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     maxWidth: 350,
+    marginTop: 24,
   },
   skeletonMedia: {
     [theme.breakpoints.down("sm")]: {
@@ -24,18 +25,18 @@ const productStyles = makeStyles((theme) => ({
       height: 150,
     },
     [theme.breakpoints.up("md")]: {
-      width: 300,
+      width: 350,
       height: 250,
     },
     [theme.breakpoints.up("lg")]: {
-      width: 300,
+      width: 350,
       height: 250,
     },
   },
   productContainer: {
     display: "flex",
+
     flexGrow: 1,
-    padding: "12px 18px",
     [theme.breakpoints.down("sm")]: {
       justifyContent: "center",
       flexWrap: "wrap",

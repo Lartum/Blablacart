@@ -1,4 +1,11 @@
-import { Box, Button, Chip, Divider, Typography } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Chip,
+  Container,
+  Divider,
+  Typography,
+} from "@material-ui/core";
 
 import { Skeleton } from "@material-ui/lab";
 import { useEffect, useState } from "react";
@@ -25,8 +32,8 @@ export default function Product() {
 
   return (
     <>
-      <Navbar />
-      <Box className={classes.productContainer}>
+      <Navbar hideSidebar={true} />
+      <Container className={classes.productContainer}>
         <>
           <Box className={classes.product}>
             {loading || !product ? (
@@ -72,6 +79,7 @@ export default function Product() {
               flexDirection: "column",
               paddingLeft: "15px",
               paddingRight: "15px",
+              marginTop: 24,
             }}
           >
             {loading || !product ? (
@@ -182,7 +190,7 @@ export default function Product() {
             )}
           </Box>
         </>
-      </Box>
+      </Container>
     </>
   );
 }

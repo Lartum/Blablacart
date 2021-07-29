@@ -17,10 +17,14 @@ export const CartProvider = ({ children }) => {
     }
     setcartProducts(cartProducts.concat(product));
   };
-  const removeProduct = (index) => {
-    setcartProducts(cartProducts.splice(index, 1));
+  const removeProduct = (id) => {
+    setcartProducts(cartProducts.filter((product) => id !== product.id));
   };
-  const data = [cartProducts, addProduct, removeProduct];
+
+  const handleQuantityChange = (index, value) => {
+    cartProducts[index].quantity = value;
+  };
+  const data = [cartProducts, addProduct, removeProduct, handleQuantityChange];
   return <CartContext.Provider value={data}>{children}</CartContext.Provider>;
 };
 

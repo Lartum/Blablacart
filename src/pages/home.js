@@ -17,6 +17,10 @@ export default function Home() {
 
   useEffect(() => {
     setProducts([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
+    getAllProducts();
+  }, []);
+  const getAllProducts = () => {
+    setLoading(true);
     getProducts(limit)
       .then((res) => {
         setProducts(res);
@@ -28,8 +32,7 @@ export default function Home() {
         console.log(error);
         setLoading(false);
       });
-  }, [limit]);
-
+  };
   const searchProductByCategory = (category) => {
     setLoading(true);
     getProductsByCategory(category)
@@ -44,9 +47,13 @@ export default function Home() {
         setLoading(false);
       });
   };
+
   return (
     <>
-      <Navbar searchProductByCategory={searchProductByCategory} />
+      <Navbar
+        getAllProducts={getAllProducts}
+        searchProductByCategory={searchProductByCategory}
+      />
       <Container maxWidth="lg">
         <div className={classes.root}>
           {products.map(({ id, image, title }, index) => (
@@ -54,8 +61,8 @@ export default function Home() {
               key={index}
               loading={loading}
               id={id}
-              imageUrl={image}
-              name={title}
+              image={image}
+              title={title}
             />
           ))}
         </div>

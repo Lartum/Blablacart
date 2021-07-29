@@ -16,11 +16,16 @@ import Cart from "./Cart";
 import { useCart } from "../contexts/cart-context";
 import { useHistory } from "react-router-dom";
 
-export default function Navbar({ searchProductByCategory }) {
+export default function Navbar({
+  getAllProducts,
+  searchProductByCategory,
+  hideSidebar = false,
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [cartToggle, setCartToggle] = useState(false);
   const classes = navbarStyles();
-  const [cart, addProduct, removeProduct] = useCart(useCart);
+  const [cart, addProduct, removeProduct, handleQuantityChange] =
+    useCart(useCart);
   const history = useHistory();
   const toggleDrawer = (open) => (event) => {
     if (
@@ -44,15 +49,19 @@ export default function Navbar({ searchProductByCategory }) {
     <div className={classes.root}>
       <AppBar position="sticky" className={classes.appBar}>
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-            onClick={toggleDrawer(true)}
-          >
-            <MenuIcon />
-          </IconButton>
+          {hideSidebar ? (
+            <></>
+          ) : (
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+              onClick={toggleDrawer(true)}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
 
           <Typography
             variant="h6"
@@ -70,12 +79,7 @@ export default function Navbar({ searchProductByCategory }) {
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
-            <Cart
-              cartToggle={cartToggle}
-              toggleCart={toggleCart}
-              cart={cart}
-              removeProduct={removeProduct}
-            />
+            <Cart cartToggle={cartToggle} toggleCart={toggleCart} />
           </>
           <IconButton>
             <PersonIcon />
@@ -83,11 +87,16 @@ export default function Navbar({ searchProductByCategory }) {
           <Typography variant="body1">Username</Typography>
         </Toolbar>
       </AppBar>
-      <Sidebar
-        isOpen={isOpen}
-        toggleDrawer={toggleDrawer}
-        searchProductByCategory={searchProductByCategory}
-      />
+      {hideSidebar ? (
+        <></>
+      ) : (
+        <Sidebar
+          isOpen={isOpen}
+          toggleDrawer={toggleDrawer}
+          getAllProducts={getAllProducts}
+          searchProductByCategory={searchProductByCategory}
+        />
+      )}
     </div>
   );
 }

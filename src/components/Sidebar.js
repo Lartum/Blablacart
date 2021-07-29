@@ -5,6 +5,7 @@ import {
   ListItemText,
   Typography,
 } from "@material-ui/core";
+import { Skeleton } from "@material-ui/lab";
 import { useEffect, useState } from "react";
 import { getCategories } from "../services/productServices";
 import sidebarStyles from "../styles/sidebarStyles";
@@ -12,14 +13,23 @@ import sidebarStyles from "../styles/sidebarStyles";
 export default function Sidebar({
   isOpen,
   toggleDrawer,
+  getAllProducts,
   searchProductByCategory,
 }) {
   const classes = sidebarStyles();
+  const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   useEffect(() => {
-    getCategories().then((res) => {
-      setCategories(res);
-    });
+    getCategories()
+      .then((res) => {
+        setCategories(res);
+      })
+      .finally(() => {
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   const handleCategoryClick = (category) => {
@@ -41,27 +51,35 @@ export default function Sidebar({
           BlablaCart
         </Typography>
         <List>
-          {categories.map((category, index) => (
-            <ListItem
-              button
-              className={classes.categorytext}
-              onClick={() => handleCategoryClick(category)}
-            >
-              <ListItemText primary={category} />
-            </ListItem>
-          ))}
-          {/* <ListItem button>
-            <ListItemText primary="Category 1" />
-          </ListItem>
-          <ListItem button>
-            <ListItemText primary="Category 2" />
-          </ListItem>
-          <ListItem button>
-            <ListItemText primary="Category 3" />
-          </ListItem>
-          <ListItem button>
-            <ListItemText primary="Category 4" />
-          </ListItem> */}
+          {loading || (categories.length && categories.length < 1) ? (
+            <div style={{ padding: 8 }}>
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+            </div>
+          ) : (
+            <>
+              <ListItem
+                button
+                className={classes.categorytext}
+                onClick={getAllProducts}
+              >
+                <ListItemText primary="all" />
+              </ListItem>
+              {categories.map((category, index) => (
+                <ListItem
+                  key={index}
+                  button
+                  className={classes.categorytext}
+                  onClick={() => handleCategoryClick(category)}
+                >
+                  <ListItemText primary={category} />
+                </ListItem>
+              ))}
+            </>
+          )}
         </List>
       </div>
     </Drawer>

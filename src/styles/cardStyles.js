@@ -5,6 +5,7 @@ const cardStyles = makeStyles((theme) => ({
     flexGrow: 1,
     flexWrap: "wrap",
     display: "flex",
+    justifyContent: "center",
     gap: 10,
     [theme.breakpoints.down("sm")]: {
       gap: 20,
@@ -20,15 +21,19 @@ const cardStyles = makeStyles((theme) => ({
   card: {
     flexGrow: 1,
     [theme.breakpoints.down("xs")]: {
-      maxWidth: 390,
+      minWidth: 300,
+      maxWidth: 300,
     },
     [theme.breakpoints.down("sm")]: {
-      maxWidth: 350,
+      minWidth: 250,
+      maxWidth: 250,
     },
     [theme.breakpoints.up("md")]: {
+      minWidth: 300,
       maxWidth: 300,
     },
     [theme.breakpoints.up("lg")]: {
+      minWidth: 300,
       maxWidth: 300,
     },
     maxHeight: 600,
@@ -37,8 +42,18 @@ const cardStyles = makeStyles((theme) => ({
     height: 250,
   },
   skeletonMedia: {
-    width: 300,
-    height: 250,
+    [theme.breakpoints.down("sm")]: {
+      width: 350,
+      height: 150,
+    },
+    [theme.breakpoints.up("md")]: {
+      width: 350,
+      height: 250,
+    },
+    [theme.breakpoints.up("lg")]: {
+      width: 350,
+      height: 250,
+    },
   },
   skeletonButton: {
     width: "100%",
