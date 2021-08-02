@@ -1,10 +1,7 @@
 import { useState } from "react";
 import {
-  Box,
   Button,
   Container,
-  Divider,
-  Paper,
   Step,
   StepContent,
   StepLabel,
@@ -19,6 +16,7 @@ import {
 import Navbar from "../components/Navbar";
 import { useCart } from "../contexts/cart-context";
 import checkoutStyles from "../styles/checkoutStyles";
+import PricingBar from "../components/PricingBar";
 
 function getSteps() {
   return ["Address", "Order Summary", "Payment Options"];
@@ -37,10 +35,17 @@ const getStepContent = (step) => {
 };
 export default function Checkout() {
   const classes = checkoutStyles();
-  const [cart, addProduct, removeProduct, handleQuantityChange] =
-    useCart(useCart);
+  const [cart, , ,] = useCart(useCart);
   const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
+  let totalItems = 0,
+    totalPrice = 0;
+  if (cart.length > 0) {
+    cart.map(({ quantity, price }) => {
+      totalItems = totalItems + quantity;
+      return (totalPrice = (totalPrice + price * 75) * quantity);
+    });
+  }
   const handleNext = () => {
     if (activeStep === steps.length - 1) {
       return alert("payment finished");
@@ -54,12 +59,9 @@ export default function Checkout() {
 
   return (
     <>
-      <Navbar hideSidebar={true} />
+      <Navbar hideSidebar={true} showBackButton={true} />
       <Container>
-        <div
-          className={classes.root}
-          style={{ display: "flex", flexWrap: "wrap", gap: 12 }}
-        >
+        <div className={classes.root}>
           <Stepper
             activeStep={activeStep}
             orientation="vertical"
@@ -93,41 +95,7 @@ export default function Checkout() {
               </Step>
             ))}
           </Stepper>
-          <Paper
-            style={{
-              padding: "12px 30px",
-              flexGrow: 1,
-              marginTop: 20,
-              display: "flex",
-              flexDirection: "column",
-              gap: 30,
-              height: "fit-content",
-              minWidth: 250,
-              maxWidth: 250,
-            }}
-          >
-            <Box>
-              <Typography
-                variant="body1"
-                color="primary"
-                style={{ fontWeight: "bold", textTransform: "capitalize" }}
-              >
-                Price Details
-              </Typography>
-              <Divider style={{ marginTop: 12 }} />
-            </Box>
-            <Box>
-              <Typography>
-                Price (<span>{cart.length} item</span>)
-              </Typography>
-            </Box>
-            <Box>
-              <Typography>Delivery Charges</Typography>
-            </Box>
-            <Box>
-              <Typography>Total Payable</Typography>
-            </Box>
-          </Paper>
+          <PricingBar totalItems={totalItems} totalPrice={totalPrice} />
         </div>
       </Container>
     </>

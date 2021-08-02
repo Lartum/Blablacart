@@ -46,8 +46,8 @@ export default function ViewCartCard({
             <Box style={{ display: "flex", justifyContent: "flex-end" }}>
               <FormControl style={{ alignSelf: "center" }}>
                 <input
-                  defaultValue={1}
-                  value={quantity}
+                  defaultValue={quantity}
+                  // value={quantity}
                   onChange={(e) => handleQuantityChange(index, e.target.value)}
                   type="number"
                   id="tentacles"

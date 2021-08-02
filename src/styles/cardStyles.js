@@ -8,12 +8,15 @@ const cardStyles = makeStyles((theme) => ({
     justifyContent: "center",
     gap: 10,
     [theme.breakpoints.down("sm")]: {
+      marginTop: 50,
       gap: 20,
     },
     [theme.breakpoints.up("md")]: {
+      marginTop: 50,
       gap: 30,
     },
     [theme.breakpoints.up("lg")]: {
+      marginTop: 100,
       gap: 10,
     },
     marginTop: 12,

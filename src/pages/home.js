@@ -12,12 +12,14 @@ import {
 export default function Home() {
   const classes = cardStyles();
   const [products, setProducts] = useState([]);
-  const [limit, setLimit] = useState(24);
+  const [limit] = useState(24);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setProducts([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
+
     getAllProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const getAllProducts = () => {
     setLoading(true);

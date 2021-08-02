@@ -20,7 +20,7 @@ export default function Product() {
   const classes = productStyles();
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState(null);
-  const [cart, addProduct, removeProduct] = useCart(useCart);
+  const [, addProduct] = useCart(useCart);
   useEffect(() => {
     setLoading(!loading);
     getProductById(id)
@@ -32,11 +32,12 @@ export default function Product() {
         console.log(error);
         setLoading(!loading);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return (
     <>
-      <Navbar hideSidebar={true} />
+      <Navbar hideSidebar={true} showBackButton={true} />
       <Container className={classes.productContainer}>
         <>
           <Box className={classes.product}>
@@ -77,15 +78,7 @@ export default function Product() {
               </Button>
             )}
           </Box>
-          <Box
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              paddingLeft: "15px",
-              paddingRight: "15px",
-              marginTop: 24,
-            }}
-          >
+          <Box className={classes.productDetails}>
             {loading || !product ? (
               <Skeleton
                 animation="wave"

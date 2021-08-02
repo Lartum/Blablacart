@@ -12,6 +12,19 @@ const productStyles = makeStyles((theme) => ({
       width: 350,
     },
   },
+  productDetails: {
+    display: "flex",
+    flexDirection: "column",
+    paddingLeft: 15,
+    paddingRight: 15,
+    marginTop: 24,
+    [theme.breakpoints.up("md")]: {
+      paddingLeft: 40,
+    },
+    [theme.breakpoints.up("lg")]: {
+      paddingLeft: 40,
+    },
+  },
   product: {
     display: "flex",
     flexDirection: "column",
@@ -41,12 +54,15 @@ const productStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       justifyContent: "center",
       flexWrap: "wrap",
+      marginTop: 50,
     },
     [theme.breakpoints.up("md")]: {
       flexWrap: "nowrap",
+      marginTop: 50,
     },
     [theme.breakpoints.up("lg")]: {
       flexWrap: "nowrap",
+      marginTop: 100,
     },
   },
   cartButton: {

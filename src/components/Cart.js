@@ -15,12 +15,11 @@ import cartStyles from "../styles/cartStyles";
 
 export default function Cart({ cartToggle, toggleCart }) {
   const classes = cartStyles();
-  const [cart, addProduct, removeProduct, handleQuantityChange] =
-    useCart(useCart);
+  const [cart, , removeProduct, handleQuantityChange] = useCart(useCart);
   const history = useHistory();
 
   let totalPrice = 0;
-  console.log(cart);
+
   if (cart.length > 0) {
     cart.map(({ quantity, price }) => {
       return (totalPrice = (totalPrice + price * 75) * quantity);
@@ -56,7 +55,7 @@ export default function Cart({ cartToggle, toggleCart }) {
                       >
                         <FormControl style={{ alignSelf: "center" }}>
                           <input
-                            defaultValue={1}
+                            defaultValue={cart[index].quantity}
                             // value={cart[index].quantity}
                             onChange={(e) =>
                               handleQuantityChange(index, e.target.value)

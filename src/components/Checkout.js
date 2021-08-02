@@ -43,8 +43,7 @@ export const AddressForm = () => {
 };
 
 export const OrderSummary = () => {
-  const [cart, addProduct, removeProduct, handleQuantityChange] =
-    useCart(useCart);
+  const [cart, , removeProduct, handleQuantityChange] = useCart(useCart);
   const classes = cartStyles();
   return (
     <div>
@@ -59,15 +58,17 @@ export const OrderSummary = () => {
                   className={classes.cartProductImage}
                 />
               </Box>
-              <Box style={{ marginLeft: 4, flexGrow: 1 }}>
+              <Box style={{ marginLeft: 18, flexGrow: 1 }}>
                 <Typography style={{ color: "#00000D" }}>
                   {title.length > 20 ? title.substring(0, 20) + "..." : title}
                 </Typography>
-                <Typography style={{ color: "#00000D" }}>₹{}</Typography>
+                <Typography style={{ color: "#00000D" }}>
+                  ₹{cart[index].price * 75}
+                </Typography>
                 <Box style={{ display: "flex", justifyContent: "flex-end" }}>
                   <FormControl style={{ alignSelf: "center" }}>
                     <input
-                      defaultValue={1}
+                      defaultValue={cart[index].quantity}
                       value={quantity}
                       onChange={(e) =>
                         handleQuantityChange(index, e.target.value)

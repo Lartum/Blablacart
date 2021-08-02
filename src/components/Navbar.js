@@ -2,13 +2,13 @@ import { useState } from "react";
 import {
   AppBar,
   Badge,
-  // Box,
   IconButton,
   Toolbar,
   Typography,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import PersonIcon from "@material-ui/icons/Person";
 import navbarStyles from "../styles/navbarStyles";
 import Sidebar from "./Sidebar";
@@ -20,12 +20,12 @@ export default function Navbar({
   getAllProducts,
   searchProductByCategory,
   hideSidebar = false,
+  showBackButton = false,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [cartToggle, setCartToggle] = useState(false);
   const classes = navbarStyles();
-  const [cart, addProduct, removeProduct, handleQuantityChange] =
-    useCart(useCart);
+  const [cart, , ,] = useCart(useCart);
   const history = useHistory();
   const toggleDrawer = (open) => (event) => {
     if (
@@ -37,24 +37,25 @@ export default function Navbar({
     setIsOpen(open);
   };
 
-  const toggleCart = (event) => {
+  const toggleCart = () => {
     setCartToggle(!cartToggle);
   };
 
   const redirectHome = () => {
     history.push("/");
   };
-
+  const goBack = () => {
+    history.goBack();
+  };
   return (
     <div className={classes.root}>
-      <AppBar position="sticky" className={classes.appBar}>
+      <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           {hideSidebar ? (
             <></>
           ) : (
             <IconButton
               edge="start"
-              className={classes.menuButton}
               color="inherit"
               aria-label="menu"
               onClick={toggleDrawer(true)}
@@ -62,7 +63,18 @@ export default function Navbar({
               <MenuIcon />
             </IconButton>
           )}
-
+          {showBackButton ? (
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={goBack}
+            >
+              <ArrowBackIcon />
+            </IconButton>
+          ) : (
+            <></>
+          )}
           <Typography
             variant="h6"
             className={classes.title}

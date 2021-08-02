@@ -1,34 +1,29 @@
-import {
-  Paper,
-  Container,
-  Typography,
-  Button,
-  Divider,
-  Box,
-} from "@material-ui/core";
+import { Paper, Container, Typography, Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import PricingBar from "../components/PricingBar";
 import ViewCartCard from "../components/ViewCartCard";
 import { useCart } from "../contexts/cart-context";
+import viewCartStyles from "../styles/viewCartStyles";
 
 export default function ViewCart() {
-  const [cart, addProduct, removeProduct, handleQuantityChange] =
-    useCart(useCart);
+  const [cart, , removeProduct, handleQuantityChange] = useCart(useCart);
+  const classes = viewCartStyles();
   const history = useHistory();
   let totalItems = 0,
     totalPrice = 0;
   if (cart.length > 0) {
     cart.map(({ quantity, price }) => {
       totalItems = totalItems + quantity;
-      totalPrice = (totalPrice + price * 75) * quantity;
+      return (totalPrice = (totalPrice + price * 75) * quantity);
     });
   }
 
   return (
     <>
-      <Navbar hideSidebar={true} />
+      <Navbar hideSidebar={true} showBackButton={true} />
       <Container>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+        <div className={classes.root}>
           <Paper
             style={{
               flexGrow: 1,
@@ -97,52 +92,7 @@ export default function ViewCart() {
               </Button>
             )}
           </Paper>
-          <Paper
-            style={{
-              padding: "12px 30px",
-              flexGrow: 1,
-              marginTop: 20,
-              display: "flex",
-              flexDirection: "column",
-              gap: 30,
-              height: "fit-content",
-            }}
-          >
-            <Box style={{ display: "flex" }}>
-              <Typography
-                variant="body1"
-                color="primary"
-                style={{ fontWeight: "bold", textTransform: "capitalize" }}
-              >
-                Price Details
-              </Typography>
-              <Divider style={{ marginTop: 12 }} />
-            </Box>
-            <Box style={{ display: "flex" }}>
-              <Typography>
-                Price (<span>{totalItems} item</span>)
-              </Typography>
-              <Typography style={{ marginLeft: "auto" }}>
-                ₹{totalPrice}
-              </Typography>
-            </Box>
-            <Box style={{ display: "flex" }}>
-              <Typography>Delivery Charges</Typography>
-              <Typography style={{ marginLeft: "auto", color: "#388e3c" }}>
-                Free
-              </Typography>
-            </Box>
-            <Divider />
-            <Box style={{ display: "flex" }}>
-              <Typography style={{ fontWeight: "bold" }}>
-                Total Payable
-              </Typography>
-              <Typography style={{ marginLeft: "auto", fontWeight: "bold" }}>
-                ₹{totalPrice}
-              </Typography>
-            </Box>
-            <Divider />
-          </Paper>
+          <PricingBar totalItems={totalItems} totalPrice={totalPrice} />
         </div>
       </Container>
     </>

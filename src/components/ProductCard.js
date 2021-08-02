@@ -21,14 +21,13 @@ export default function ProductCard({
   related = false,
 }) {
   const classes = cardStyles();
-  const [cart, addProduct, removeProduct] = useCart(useCart);
+  const [, addProduct] = useCart(useCart);
   const history = useHistory();
   const product = {
     id,
     image,
     title,
     price,
-    quantity: 1,
   };
 
   const handleProductRedirect = () => {
